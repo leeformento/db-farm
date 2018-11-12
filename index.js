@@ -25,6 +25,19 @@ server.get('/veggies', (req, res) => {
       });
 })
 
+server.get('/veggies/:id', (req,res) => {
+    db('veggies')
+    .where({ id: req.params.id })
+    .first()
+    .then(veggies => {
+        console.log(veggies)
+        res.status(200).json(veggies);
+    })
+    .catch(err => {
+        res.status(500).json(err)
+      });
+})
+
 const port = 8888;
 server.listen(port, function() {
     console.log(`\n Planting at port ${port} \n`);
