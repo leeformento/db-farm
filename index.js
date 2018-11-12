@@ -7,7 +7,7 @@ const db = knex(knexConfig.development);
 
 const server = express();
 
-server.use(express.json);
+server.use(express.json());
 server.use(helmet());
 
 server.get('/', (req, res) => {
@@ -16,5 +16,5 @@ server.get('/', (req, res) => {
 
 const port = 8888;
 server.listen(port, function() {
-    console.log(`\n Planting at port ${port}`);
+    console.log(`\n Planting at port ${port} \n`);
 })
