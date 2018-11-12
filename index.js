@@ -43,10 +43,27 @@ server.post('/veggies', (req, res) => {
     db.insert(name)
     .into('veggies')
     .then(veggie => {
-        res.status(200).json(veggies[0])
+        res.status(200).json({ message: "Successfully added",})
     })
     .catch(err => res.status(500).json(err));
 });
+
+server.put('/veggies/:id', (req, res) => {
+    const veggie = req.body;
+    db('veggies')
+    .where({ id: req.params.id})
+    .update(veggie)
+    .then(veggie => {
+        if (veggie) {
+            res.status(200).json({ message: "Veggie updated!" });
+        } else {
+            res.status(404).json({ message: "No Veggie associated with this ID" });
+        }
+    })
+    .catch(err => {
+        res.status(500).json({ message: "Sorry, we could not update this veggie." });
+      });
+})
 
 const port = 8888;
 server.listen(port, function() {
