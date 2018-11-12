@@ -38,6 +38,16 @@ server.get('/veggies/:id', (req,res) => {
       });
 })
 
+server.post('/veggies', (req, res) => {
+    const name = req.body;
+    db.insert(name)
+    .into('veggies')
+    .then(veggie => {
+        res.status(200).json(veggies[0])
+    })
+    .catch(err => res.status(500).json(err));
+});
+
 const port = 8888;
 server.listen(port, function() {
     console.log(`\n Planting at port ${port} \n`);
